@@ -16,7 +16,7 @@ class ExpoUpdatesServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('expo-updates')
+            ->name('laravel-expo-updates')
             ->hasConfigFile()
             ->hasRoute('api')
             ->hasInstallCommand(function (InstallCommand $command) {
