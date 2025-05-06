@@ -15,7 +15,7 @@ class ExpoUpdate extends Model
         'metadata',
         'expo_config',
         'directory',
-        'disk'
+        'disk',
     ];
 
     protected $casts = [
