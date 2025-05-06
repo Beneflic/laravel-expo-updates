@@ -14,12 +14,12 @@ class ManifestController extends Controller
 {
     public function __invoke(Request $request)
     {
-        $channel = $request->header('expo-channel-name');
-        $runtimeVersion = $request->header('expo-runtime-version');
-        $platform = $request->header('expo-platform');
-        $currentUpdateId = $request->header('expo-update-id');
-        $protocolVersion = $request->header('expo-protocol-version');
-        $expectSignature = $request->header('expo-expect-signature', false);
+        $channel = $this->getParameter('channel-name');
+        $runtimeVersion = $this->getParameter('runtime-version');
+        $platform = $this->getParameter('platform');
+        $currentUpdateId = $this->getParameter('update-id');
+        $protocolVersion = $this->getParameter('protocol-version');
+        $expectSignature = $this->getParameter('expect-signature', false);
 
         $cacheKey = "expo-updates:$channel,$runtimeVersion,$platform,$currentUpdateId,$protocolVersion,$expectSignature";
         $response = Cache::remember($cacheKey, 60, function () use ($channel, $runtimeVersion, $platform, $currentUpdateId, $protocolVersion, $expectSignature) {
@@ -28,6 +28,10 @@ class ManifestController extends Controller
 
         return response($response['body'], $response['status'])
             ->withHeaders($response['headers']);
+    }
+
+    private function getParameter(string $name, $default = null) {
+        return \request()->header('expo-'.$name, $default) ?? \request()->query($name, $default);
     }
 
     private function getUpdate($channel, $runtimeVersion, $platform, $currentUpdateId, $protocolVersion, $expectSignature)
@@ -40,7 +44,7 @@ class ManifestController extends Controller
         if ($update === null || ($update->id === $currentUpdateId && $protocolVersion === '1')) {
             return [
                 'status' => $protocolVersion === '1' ? 204 : 404,
-                'content' => '',
+                'body' => '',
                 'headers' => [
                     'x-computed' => now()->timestamp,
                 ],
