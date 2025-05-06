@@ -30,7 +30,8 @@ class ManifestController extends Controller
             ->withHeaders($response['headers']);
     }
 
-    private function getParameter(string $name, $default = null) {
+    private function getParameter(string $name, $default = null)
+    {
         return \request()->header('expo-'.$name, $default) ?? \request()->query($name, $default);
     }
 
