@@ -22,7 +22,7 @@ class ManifestController extends Controller
         $expectSignature = $request->header('expo-expect-signature', false);
 
         $cacheKey = "expo-updates:$channel,$runtimeVersion,$platform,$currentUpdateId,$protocolVersion,$expectSignature";
-        $response = Cache::remember($cacheKey, 60, function () use ($channel, $runtimeVersion, $platform, $currentUpdateId, $protocolVersion, $expectSignature) {
+        $response = Cache::tags(['expo-updates'])->remember($cacheKey, 60, function () use ($channel, $runtimeVersion, $platform, $currentUpdateId, $protocolVersion, $expectSignature) {
             return $this->getUpdate($channel, $runtimeVersion, $platform, $currentUpdateId, $protocolVersion, $expectSignature);
         });
 

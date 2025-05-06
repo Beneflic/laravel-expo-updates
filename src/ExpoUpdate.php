@@ -14,10 +14,13 @@ class ExpoUpdate extends Model
         'timestamp',
         'metadata',
         'expo_config',
+        'directory',
+        'disk'
     ];
 
     protected $casts = [
         'metadata' => 'array',
         'expo_config' => 'array',
+        'timestamp' => 'datetime',
     ];
 }

@@ -2,7 +2,14 @@
 
 namespace Beneflic\ExpoUpdates;
 
+use Illuminate\Support\Facades\Cache;
+
 class ExpoUpdates
 {
-    // Build your next great package.
+    public function new(array $data): ExpoUpdate {
+        Cache::tags(['expo-updates'])->flush();
+        return ExpoUpdate::create([
+            'timestamp' => now(),
+        ] + $data);
+    }
 }

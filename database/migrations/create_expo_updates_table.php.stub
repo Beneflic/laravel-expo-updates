@@ -19,13 +19,13 @@ return new class extends Migration
 
             $table->timestamp('timestamp');
 
-            $table->json('metadata');
+            $table->json('metadata')->nullable();
 
-            $table->json('expo_config');
+            $table->json('expo_config')->nullable();
 
-            $table->string('directory');
+            $table->string('directory')->nullable();
 
-            $table->string('disk');
+            $table->string('disk')->nullable();
 
             $table->timestamps();
         });
