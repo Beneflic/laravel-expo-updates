@@ -2,8 +2,6 @@
 
 namespace Beneflic\ExpoUpdates;
 
-use Illuminate\Support\Facades\Cache;
-
 class ExpoUpdates
 {
     public function new(array $data): ExpoUpdate
