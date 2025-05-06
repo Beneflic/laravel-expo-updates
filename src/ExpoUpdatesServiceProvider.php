@@ -17,7 +17,7 @@ class ExpoUpdatesServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('laravel-expo-updates')
-            ->hasConfigFile()
+            ->hasConfigFile('expo-updates')
             ->hasRoute('api')
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
@@ -25,6 +25,6 @@ class ExpoUpdatesServiceProvider extends PackageServiceProvider
                     ->publishMigrations()
                     ->askToStarRepoOnGitHub('beneflic/laravel-expo-updates');
             })
-            ->hasMigration('create_laravel_expo_updates_table');
+            ->hasMigration('create_expo_updates_table');
     }
 }
